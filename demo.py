@@ -32,7 +32,7 @@ def run_demo():
     tools = [ FakeNewsSearchTool()]
     
     # Initialize router
-    router = ConversationRouter(llm)
+    router = ConversationRouter(llm, tools)
     
     # Demo queries
     demo_queries = [
