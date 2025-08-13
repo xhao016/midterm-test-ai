@@ -18,7 +18,6 @@ def run_demo():
     # Check if API key is available
     if not os.getenv("GOOGLE_API_KEY"):
         print("⚠️  No Google API key found. Using mock responses for demo.")
-        run_mock_demo()
         return
     
     # Initialize LLM
