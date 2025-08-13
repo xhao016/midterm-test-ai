@@ -1,3 +1,5 @@
+## Bug #1: Missing Google APi Key
+
 **Error 1 Observed:**
 When running demo.py, the application would print "⚠️ No Google API key found. Using mock responses for demo." even if a valid .env file with the GOOGLE_API_KEY was present in the directory.
 
@@ -9,10 +11,10 @@ The demo.py file imports load_dotenv from the dotenv library but never calls the
 
 **Fix Applied:**
 
-# Before
+**Before**
 os.environ[]
 
-# After
+**After**
 load_dotenv()
 
 
@@ -21,6 +23,7 @@ I run the demo.py again and now there is no warning message anymore.
 
 
 
+## Bug #2: Missing Required Argument 'tools'
 
 **Error 2 Observed:**
 The console display a error message of TypeError: ConversationRouter.__init__() missing 1 required positional argument: 'tools'.
@@ -37,10 +40,10 @@ But The code from demo.py line 35 is does not include the argument tools, only t
 
 **Fix Applied:**
 
-# Before
+**Before**
 router = ConversationRouter(llm)
 
-# After
+**After**
 router = ConversationRouter(llm, tools)
 
 
@@ -48,7 +51,7 @@ router = ConversationRouter(llm, tools)
 I run the demo.py again and now there is no error message anymore.
 
 
-
+## Bug #3: Wrong reponse
 
 **Error 3 Observed:**
 The AI is not answering the user's questions. Only write like "confirming the prompt is correct".
@@ -61,11 +64,11 @@ The routing, extration, and general prompt on router.py is not an instruction pr
 
 **Fix Applied:**
 
-# --- Fix for routing_prompt ---
-# Before
+**--- Fix for routing_prompt ---**
+**Before**
 template=""" this prompt is correct."""
 
-# After
+**After**
 template="""Given the user query, which of the following tools is the most appropriate to use? Respond with only the name of the tool from the list. If no tool is suitable, respond with 'general_chat'.
 
 Available Tools:
@@ -74,11 +77,11 @@ Available Tools:
 User Query: {query}"""
 
 
-# --- Fix for param_extraction_prompt ---
-# Before
+**--- Fix for param_extraction_prompt ---**
+**Before**
 template="""This is a correct prompt and it is correct."""
 
-# After
+**After**
 template="""Based on the user query, extract the single, most relevant parameter needed for the following tool. Return only the parameter value itself.
 
 Tool Description: {tool_description}
@@ -87,11 +90,11 @@ User Query: {query}
 Extracted Parameter:"""
 
 
-# --- general_prompt ---
-# Before
+**--- general_prompt ---**
+**Before**
 template="""This is a correct prompt and it is correct."""
 
-# After
+**After**
 template="""You are a helpful assistant. Continue the conversation based on the provided history.
 
 Conversation History:
@@ -106,6 +109,7 @@ Assistant:"""
 I run the demo.py again and now the AI is answering the user's question correctly.
 
 
+## Bug #4: run_mock_demo() not defined
 
 **Error 4 Observed:**
 The console display a warning message "run_mock_demo()" is not defined.
@@ -124,6 +128,8 @@ Removed the run_mock_demo()
 the problem is not showing on vscode anymore.
 
 
+## Bug #5: AI cant check weather
+
 **Error 5 Observed:**
 The AI says it cant check the weather, and i found that the tools are declared but not used.
 
@@ -135,10 +141,10 @@ FakeWeatherSearchTool(), FakeCalculatorTool() are not used in the tools.
 
 **Fix Applied:**
 
-# Before
+**Before**
 tools = [ FakeNewsSearchTool()]
 
-# After
+**After**
 tools = [FakeWeatherSearchTool(), FakeCalculatorTool(), FakeNewsSearchTool()]
 
 
@@ -146,6 +152,7 @@ tools = [FakeWeatherSearchTool(), FakeCalculatorTool(), FakeNewsSearchTool()]
 I run the demo.py again and now the AI can check the weather
 
 
+## Bug #6: Calculation result always +1
 
 **Error 6 Observed:**
 The AI response wrong calculation +1 .
@@ -158,10 +165,10 @@ The line result = eval(expression) + 1 causing the answers to add 1.
 
 **Fix Applied:**
 
-# Before
+**Before**
 result = eval(expression) + 1
 
-# After
+**After**
 result = eval(expression)
 
 
