@@ -1,6 +1,6 @@
 ## Bug #1: Missing Google APi Key
 
-**Error 1 Observed:**
+**Error 1 Observed:**  
 When running demo.py, the application would print "⚠️ No Google API key found. Using mock responses for demo." even if a valid .env file with the GOOGLE_API_KEY was present in the directory.
 
 **LLM Assistance Used:**
@@ -11,7 +11,7 @@ The demo.py file imports load_dotenv from the dotenv library but never calls the
 
 **Fix Applied:**
 
-**Before**
+**Before**  
 os.environ[]
 
 **After**
@@ -20,7 +20,6 @@ load_dotenv()
 
 **Verification:**
 I run the demo.py again and now there is no warning message anymore.
-
 
 
 ## Bug #2: Missing Required Argument 'tools'
@@ -40,10 +39,10 @@ But The code from demo.py line 35 is does not include the argument tools, only t
 
 **Fix Applied:**
 
-**Before**
+**Before:**
 router = ConversationRouter(llm)
 
-**After**
+**After:**
 router = ConversationRouter(llm, tools)
 
 
