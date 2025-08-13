@@ -29,7 +29,7 @@ def run_demo():
     )
     
     # Initialize tools
-    tools = [ FakeNewsSearchTool()]
+    tools = [FakeWeatherSearchTool(), FakeCalculatorTool(), FakeNewsSearchTool()]
     
     # Initialize router
     router = ConversationRouter(llm, tools)
