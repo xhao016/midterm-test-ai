@@ -117,7 +117,7 @@ The console display a warning message "run_mock_demo()" is not defined.
 I have checked to make sure the run_mock_demo() function is not existing in the project, then i asked gemini to help me check if the function is related to any features.
 
 **Root Cause:**  
--
+
 
 **Fix Applied:**  
 Removed the run_mock_demo()
