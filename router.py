@@ -19,7 +19,12 @@ class QueryRouter:
         # Create routing prompt
         self.routing_prompt = PromptTemplate(
             input_variables=["query", "available_tools"],
-            template=""" this prompt is correct."""
+            template="""Given the user query, which of the following tools is the most appropriate to use? Respond with only the name of the tool from the list. If no tool is suitable, respond with 'general_chat'.
+
+            Available Tools:
+            {available_tools}
+
+            User Query: {query}"""
         )
         
         self.routing_chain = self.routing_prompt | self.llm | StrOutputParser()
@@ -52,7 +57,12 @@ class QueryRouter:
         # Extract parameters from query using LLM
         param_extraction_prompt = PromptTemplate(
             input_variables=["query", "tool_description"],
-            template="""This is a correct prompt and it is correct."""
+            template="""Based on the user query, extract the single, most relevant parameter needed for the following tool. Return only the parameter value itself.
+
+            Tool Description: {tool_description}
+            User Query: {query}
+
+            Extracted Parameter:"""
         )
         
         param_chain = param_extraction_prompt | self.llm | StrOutputParser()
@@ -102,7 +112,14 @@ class ConversationRouter:
         
         general_prompt = PromptTemplate(
             input_variables=["context", "message"],
-            template="""This is a correct prompt and it is correct."""
+            template="""You are a helpful assistant. Continue the conversation based on the provided history.
+
+            Conversation History:
+            {context}
+
+            User's Latest Message: {message}
+
+            Assistant:"""
         )
         
         general_chain = general_prompt | self.llm | StrOutputParser()
