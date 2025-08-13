@@ -13,7 +13,7 @@ def run_demo():
     print("=" * 40)
     
     # Load environment variables
-    # os.environ[]
+    load_dotenv()
     
     # Check if API key is available
     if not os.getenv("GOOGLE_API_KEY"):
